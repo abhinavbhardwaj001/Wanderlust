@@ -33,6 +33,7 @@ module.exports.createListing = async (req,res, next)=>{
     req.flash("error", "Location not found!");
     return res.redirect("/listings/new");
   }
+  console.log("check1");
   const coordinates = [data[0].lon, data[0].lat];
   const newListing = new Listing({
     ...req.body.listing,
@@ -45,8 +46,10 @@ module.exports.createListing = async (req,res, next)=>{
   let filename = req.file.filename;
   newListing.owner = req.user._id;
   newListing.image = {url, filename};
+  console.log("check2");
   await newListing.save();
   req.flash("success","New Listing Created!");
+  console.log("check3");
   res.redirect("/listings");
   };
 
@@ -80,4 +83,5 @@ module.exports.destroyListing = async (req,res)=>{
   await Listing.findByIdAndDelete(id);
   req.flash("success","Listing Deleted!");
   res.redirect("/listings");
+
 };
