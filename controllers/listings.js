@@ -30,7 +30,7 @@ module.exports.createListing = async (req,res, next)=>{
   
   try{
    const response = await fetch(
-      `https://nominatim.openstreetmap.org/search?q=${req.body.listing.location}&format=json&addressdetails=1&limit=1`,    {
+      `https://nominatim.openstreetmap.org/search?q=${req.body.listing.location}&format=json&limit=1`,    {
       headers: {
         "User-Agent": "WanderlustApp/1.0 (contact: kanhabhardwajabhi@gmail.com)",
         "Accept-Language": "en",
@@ -105,6 +105,7 @@ module.exports.destroyListing = async (req,res)=>{
   res.redirect("/listings");
 
 };
+
 
 
 
