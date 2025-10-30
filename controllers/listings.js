@@ -29,7 +29,9 @@ module.exports.showListing = async(req,res)=>{
 module.exports.createListing = async (req,res, next)=>{
   console.log("check");
   const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${req.body.listing.location}&format=json&addressdetails=1&limit=1`);
+  console.log("check1.2")
   const data = await response.json();
+  console.log("check1.3")
   if(data.length === 0) {
     req.flash("error", "Location not found!");
     return res.redirect("/listings/new");
@@ -86,4 +88,5 @@ module.exports.destroyListing = async (req,res)=>{
   res.redirect("/listings");
 
 };
+
 
