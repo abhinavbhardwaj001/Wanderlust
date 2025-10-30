@@ -27,8 +27,6 @@ module.exports.showListing = async(req,res)=>{
 };
 
 module.exports.createListing = async (req,res, next)=>{
-  
- 
    const response = await fetch(
       `https://nominatim.openstreetmap.org/search?q=${req.body.listing.location}&format=json&limit=1`,    {
       headers: {
@@ -42,16 +40,11 @@ module.exports.createListing = async (req,res, next)=>{
     const text = await response.text();
     throw new Error(`Request failed: ${response.status} - ${text}`);
   }
-
   const data = await response.json();
-    console.log(data);
-  
-  console.log("check1.3")
   if(data.length === 0) {
     req.flash("error", "Location not found!");
     return res.redirect("/listings/new");
   }
-  console.log("check1");
   const coordinates = [data[0].lon, data[0].lat];
   const newListing = new Listing({
     ...req.body.listing,
@@ -64,10 +57,8 @@ module.exports.createListing = async (req,res, next)=>{
   let filename = req.file.filename;
   newListing.owner = req.user._id;
   newListing.image = {url, filename};
-  console.log("check2");
   await newListing.save();
   req.flash("success","New Listing Created!");
-  console.log("check3");
   res.redirect("/listings");
   };
 
@@ -103,6 +94,7 @@ module.exports.destroyListing = async (req,res)=>{
   res.redirect("/listings");
 
 };
+
 
 
 
