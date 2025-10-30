@@ -27,7 +27,7 @@ module.exports.showListing = async(req,res)=>{
 };
 
 module.exports.createListing = async (req,res, next)=>{
-  console.log("check");
+  
   try{
   const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${req.body.listing.location}&format=json&addressdetails=1&limit=1`);
   console.log("check1.2")
@@ -92,6 +92,7 @@ module.exports.destroyListing = async (req,res)=>{
   res.redirect("/listings");
 
 };
+
 
 
 
